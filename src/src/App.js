@@ -11,6 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
+import HomeIcon from "@material-ui/icons/Home";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -23,7 +24,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
 import { Link as RouterLink } from "react-router-dom";
 import { Route, MemoryRouter } from "react-router";
-
+import LeftDrawer from "./components/LeftDrawer";
 import history from "./history";
 
 const drawerWidth = 240;
@@ -52,21 +53,6 @@ const useStyles = makeStyles((theme) => ({
   hide: {
     display: "none",
   },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -90,6 +76,21 @@ const useStyles = makeStyles((theme) => ({
   },
   title_card: {
     fontSize: 34,
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
   },
 }));
 
@@ -150,6 +151,12 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
+          <ListItem button onClick={() => history.push("/")}>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Main Menu"} />
+          </ListItem>
           <ListItem button onClick={() => history.push("/ingoing")}>
             <ListItemIcon>
               <ArrowForwardIcon />
@@ -175,20 +182,8 @@ export default function PersistentDrawerLeft() {
             <ListItemIcon>
               <ArrowForwardIcon />
             </ListItemIcon>
-            <ListItemText primary={"Ingoing Records"} />
+            <ListItemText primary={"See Records"} />
           </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ArrowBackIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Outgoing Records"} />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <PriorityHighIcon />
-            </ListItemIcon>
-            <ListItemText primary={"OT Records"} />
-          </ListItem>{" "}
         </List>
       </Drawer>
       <main
