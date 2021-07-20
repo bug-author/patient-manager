@@ -1,0 +1,22 @@
+{
+  "name": "patient-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"electron .\" \"cd src && npm start\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-src": "cd src && npm run build",
+    "build-electron": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^13.1.7"
+  },
+  "dependencies": {
+    "electron-is-dev": "^2.0.0",
+    "shards-react": "^1.0.3"
+  }
+}
