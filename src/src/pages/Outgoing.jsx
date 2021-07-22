@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -196,7 +196,7 @@ export default function Ingoing() {
               <Typography variant="h4" component="h2">
                 Fill the form below!
               </Typography>
-              <Patient />
+              <Patient variant="outgoing" />
             </CardContent>
           </Card>
         </Container>

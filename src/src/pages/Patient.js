@@ -15,18 +15,41 @@ const modelObject = {
   diagnosis: "",
   rxPlan: "",
   furtherPlan: "",
+  variant: "",
 };
 
-export default function Patient() {
-  const { values, setValues, handleInputChange, resetForm } =
-    useForm(modelObject);
+const electron = eval("require")("electron");
+const ipcRenderer = electron.ipcRenderer;
+
+/**
+
+  ingoing: {
+    regNumber;
+    time;
+    date;
+    patientName;
+    fatherOrHusbandName;
+    cnic;
+    cellNo;
+    symptomsAndSigns;
+    diagnosis;
+    rxPlan;
+    furtherPlan;
+  }[];
+}; 
+
+* 
+*/
+
+export default function Patient(props) {
+  const { values, handleInputChange, resetForm } = useForm(modelObject);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
+    ipcRenderer.send("message", values);
     resetForm();
   };
-
+  values.variant = props.variant;
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container>

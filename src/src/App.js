@@ -22,13 +22,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
-import { Link as RouterLink } from "react-router-dom";
-import { Route, MemoryRouter } from "react-router";
-import LeftDrawer from "./components/LeftDrawer";
 import history from "./history";
 
-const drawerWidth = 240;
+// communication
+// const electron = eval("require")("electron");
+// const ipcRenderer = electron.ipcRenderer;
+// ipcRenderer.send("message");
 
+const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -196,7 +197,9 @@ export default function PersistentDrawerLeft() {
           <Card>
             <CardContent>
               <Typography className={classes.title_card} gutterBottom>
-                <span role="img">👋👋👋</span>
+                <span role="img" aria-label="hi">
+                  👋
+                </span>
               </Typography>
               <Typography variant="h4" component="h2">
                 Welcome to Patient Manager!
