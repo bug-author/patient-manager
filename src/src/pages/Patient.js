@@ -21,26 +21,6 @@ const modelObject = {
 const electron = eval("require")("electron");
 const ipcRenderer = electron.ipcRenderer;
 
-/**
-
-  ingoing: {
-    regNumber;
-    time;
-    date;
-    patientName;
-    fatherOrHusbandName;
-    cnic;
-    cellNo;
-    symptomsAndSigns;
-    diagnosis;
-    rxPlan;
-    furtherPlan;
-  }[];
-}; 
-
-* 
-*/
-
 export default function Patient(props) {
   const { values, handleInputChange, resetForm } = useForm(modelObject);
 
@@ -49,7 +29,9 @@ export default function Patient(props) {
     ipcRenderer.send("message", values);
     resetForm();
   };
+
   values.variant = props.variant;
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container>

@@ -4,6 +4,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import Ingoing from "./pages/Ingoing";
 import Outgoing from "./pages/Outgoing";
 import Ot from "./pages/Ot";
+import ViewIngoing from "./pages/ViewIngoing";
 import App from "./App";
 import history from "./history";
 
@@ -16,6 +17,7 @@ export default class Routes extends Component {
           <Route path="/ingoing" component={Ingoing} />
           <Route path="/outgoing" component={Outgoing} />
           <Route path="/ot" component={Ot} />
+          <Route path="/ingoingRec" component={ViewIngoing} />
         </Switch>
       </Router>
     );

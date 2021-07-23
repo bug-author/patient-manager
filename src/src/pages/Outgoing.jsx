@@ -176,11 +176,23 @@ export default function Ingoing() {
         </List>
         <Divider />
         <List>
-          <ListItem button>
+          <ListItem button onClick={() => history.push("/ingoingRec")}>
             <ListItemIcon>
               <ArrowForwardIcon />
             </ListItemIcon>
-            <ListItemText primary={"See Records"} />
+            <ListItemText primary={"See Ingoing Records"} />
+          </ListItem>
+          <ListItem button onClick={() => history.push("/outgoingRec")}>
+            <ListItemIcon>
+              <ArrowBackIcon />
+            </ListItemIcon>
+            <ListItemText primary={"See Outgoing Records"} />
+          </ListItem>
+          <ListItem button onClick={() => history.push("/otRec")}>
+            <ListItemIcon>
+              <PriorityHighIcon />
+            </ListItemIcon>
+            <ListItemText primary={"See OT Records"} />
           </ListItem>
         </List>
       </Drawer>
