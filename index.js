@@ -54,7 +54,7 @@ ipcMain.on("message", (event, arg) => {
 
 async function insertRecords(arg) {
   mongoose.connect(
-    "mongodb+srv://abdullah:iphonese@cluster0.gbkbv.mongodb.net/patientManager",
+    "",
     { useUnifiedTopology: true }
   );
   if (arg.variant === "ingoing") {
@@ -91,7 +91,7 @@ ipcMain.on("fetchOt", (event, arg) => {
 
 async function getRecords(variant) {
   mongoose.connect(
-    "mongodb+srv://abdullah:iphonese@cluster0.gbkbv.mongodb.net/patientManager",
+    "",
     { useUnifiedTopology: true }
   );
   if (variant == "ingoingRecord") {
