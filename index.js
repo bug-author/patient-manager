@@ -1,11 +1,15 @@
-// todo modal popup on submission
-// todo see records
-// todo form validation
-
 const { app, BrowserWindow, ipcMain, Notification } = require("electron");
 const isDev = require("electron-is-dev");
 const url = require("url");
 const path = require("path");
+
+// * mongoDB url
+const dotenv = require("dotenv");
+dotenv.config();
+const MONGODB_URL = process.env["MONGODB_URL"];
+
+// ? for future ref:
+// ? .env file => gitignore => KEY="VALUE" => npm i dotenv => import => process.env
 
 // * db
 const ingoingRecord = require("./models/ingoingRecord");

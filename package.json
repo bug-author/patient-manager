@@ -17,6 +17,7 @@
     "electron": "^3.0"
   },
   "dependencies": {
+    "dotenv": "^10.0.0",
     "electron-is-dev": "^0.3.0",
     "mongoose": "^5.13.3",
     "wait-on": "^6.0.0"
