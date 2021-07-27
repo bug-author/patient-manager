@@ -1,3 +1,3 @@
-import { createBrowserHistory as history } from "history";
+import { createHashHistory as history } from "history";
 
 export default history();

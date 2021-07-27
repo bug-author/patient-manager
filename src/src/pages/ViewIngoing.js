@@ -107,8 +107,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   pageContent: {
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
+    margin: theme.spacing(1),
+    padding: theme.spacing(1),
   },
   drawerHeader: {
     display: "flex",
@@ -118,6 +118,21 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
     margin: 10,
+  },
+  table: {
+    marginTop: theme.spacing(3),
+    "& thead th": {
+      fontWeight: "600",
+      color: theme.palette.primary.main,
+      // backgroundColor: theme.palette.primary.light,
+    },
+    "& tbody td": {
+      fontWeight: "300",
+    },
+    "& tbody tr:hover": {
+      backgroundColor: "#fffbf2",
+      cursor: "pointer",
+    },
   },
 }));
 
@@ -266,7 +281,7 @@ export default function ViewIngoing() {
         />
 
         {records ? (
-          <Table>
+          <Table className={classes.table}>
             <Paper className={classes.pageContent}>
               <TableHead>
                 <TableRow>
@@ -279,8 +294,10 @@ export default function ViewIngoing() {
                 {records.map((item) => (
                   <TableRow key={item["_doc"].regNumber}>
                     <TableCell>{item["_doc"].regNumber}</TableCell>
-                    <TableCell>{item["_doc"].time}</TableCell>
-                    <TableCell>{item["_doc"].date}</TableCell>
+                    <TableCell>
+                      {item["_doc"].time.split("T")[1].split(".")[0]}
+                    </TableCell>
+                    <TableCell>{item["_doc"].date.split("T")[0]}</TableCell>
                     <TableCell>{item["_doc"].patientName}</TableCell>
                     <TableCell>{item["_doc"].fatherOrHusbandName}</TableCell>
                     <TableCell>{item["_doc"].cnic}</TableCell>

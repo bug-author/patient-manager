@@ -2,8 +2,10 @@
 // todo see records
 // todo form validation
 
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification } = require("electron");
 const isDev = require("electron-is-dev");
+const url = require("url");
+const path = require("path");
 
 // * db
 const ingoingRecord = require("./models/ingoingRecord");
@@ -24,14 +26,18 @@ function createWindow() {
     },
   });
 
-  mainWindow.webContents.openDevTools();
-  console.log("bawa ji"); //vscode terminal
+  // mainWindow.webContents.openDevTools();
+  // console.log("bawa ji"); //vscode terminal
 
-  if (isDev) {
-    mainWindow.loadURL("http://localhost:3000");
-  } else {
-    mainWindow.loadFile("src/build/index.html");
-  }
+  mainWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, "src/build/index.html"),
+      protocol: "file:",
+      slashes: true,
+    })
+  );
+
+  mainWindow.setMenu(null);
 }
 
 app.whenReady().then(() => {
@@ -49,14 +55,16 @@ app.on("window-all-closed", function () {
 ipcMain.on("message", (event, arg) => {
   console.log("EVENT FIRED...");
   console.log(arg.variant);
-  insertRecords(arg);
+  insertRecords(arg).then(() =>
+    new Notification({
+      title: "Notification",
+      body: "Patient Record Inserted!",
+    }).show()
+  );
 });
 
 async function insertRecords(arg) {
-  mongoose.connect(
-    "mongodb+srv://abdullah:iphonese@cluster0.gbkbv.mongodb.net/patientManager",
-    { useUnifiedTopology: true }
-  );
+  mongoose.connect("", { useUnifiedTopology: true });
   if (arg.variant === "ingoing") {
     await ingoingRecord.create(arg);
     console.log("added records to ingoing");
@@ -80,31 +88,32 @@ ipcMain.on("fetchIngoing", (event, arg) => {
 });
 
 ipcMain.on("fetchOutgoing", (event, arg) => {
-  const allRecords = getRecords("outgoingRecord");
-  event.sender.send("sendOutgoing", allRecords);
+  getRecords("outgoingRecord").then((allRecords) => {
+    console.log("SENDING THIS:");
+    console.log(allRecords);
+    mainWindow.webContents.send("sendOutgoing", allRecords);
+  });
 });
 
 ipcMain.on("fetchOt", (event, arg) => {
-  const allRecords = getRecords("OtRecord");
-  event.sender.send("sendOt", allRecords);
+  getRecords("otRecord").then((allRecords) => {
+    // console.log("SENDING THIS:");
+    // console.log(allRecords);
+    mainWindow.webContents.send("sendOt", allRecords);
+  });
 });
 
 async function getRecords(variant) {
-  mongoose.connect(
-    "mongodb+srv://abdullah:iphonese@cluster0.gbkbv.mongodb.net/patientManager",
-    { useUnifiedTopology: true }
-  );
+  mongoose.connect("", { useUnifiedTopology: true });
   if (variant == "ingoingRecord") {
     return await ingoingRecord.find({});
     // console.log(records);
-    
   } else if (variant == "outgoingRecord") {
+    console.log("HERE");
     return await outgoingRecord.find({});
     // console.log(records);
-   
   } else if (variant == "otRecord") {
     return await otRecord.find({});
-    
   }
 }
 /// END READ
