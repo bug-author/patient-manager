@@ -2,13 +2,10 @@
 // todo see records
 // todo form validation
 
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification } = require("electron");
 const isDev = require("electron-is-dev");
 const url = require("url");
 const path = require("path");
-
-const MONGODB_URL =
-  "mongodb+srv://abdullah:iphonese@cluster0.gbkbv.mongodb.net/patientManager";
 
 // * db
 const ingoingRecord = require("./models/ingoingRecord");
@@ -58,7 +55,12 @@ app.on("window-all-closed", function () {
 ipcMain.on("message", (event, arg) => {
   console.log("EVENT FIRED...");
   console.log(arg.variant);
-  insertRecords(arg);
+  insertRecords(arg).then(() =>
+    new Notification({
+      title: "Notification",
+      body: "New Patient Record Inserted!",
+    }).show()
+  );
 });
 
 async function insertRecords(arg) {
