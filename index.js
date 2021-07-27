@@ -2,10 +2,13 @@
 // todo see records
 // todo form validation
 
-const { app, BrowserWindow, ipcMain, Notification } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const isDev = require("electron-is-dev");
 const url = require("url");
 const path = require("path");
+
+const MONGODB_URL =
+  "mongodb+srv://abdullah:iphonese@cluster0.gbkbv.mongodb.net/patientManager";
 
 // * db
 const ingoingRecord = require("./models/ingoingRecord");
@@ -55,16 +58,11 @@ app.on("window-all-closed", function () {
 ipcMain.on("message", (event, arg) => {
   console.log("EVENT FIRED...");
   console.log(arg.variant);
-  insertRecords(arg).then(() =>
-    new Notification({
-      title: "Notification",
-      body: "Patient Record Inserted!",
-    }).show()
-  );
+  insertRecords(arg);
 });
 
 async function insertRecords(arg) {
-  mongoose.connect("", { useUnifiedTopology: true });
+  mongoose.connect(MONGODB_URL, { useUnifiedTopology: true });
   if (arg.variant === "ingoing") {
     await ingoingRecord.create(arg);
     console.log("added records to ingoing");
@@ -104,7 +102,7 @@ ipcMain.on("fetchOt", (event, arg) => {
 });
 
 async function getRecords(variant) {
-  mongoose.connect("", { useUnifiedTopology: true });
+  mongoose.connect(MONGODB_URL, { useUnifiedTopology: true });
   if (variant == "ingoingRecord") {
     return await ingoingRecord.find({});
     // console.log(records);
